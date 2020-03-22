@@ -1,33 +1,77 @@
-# This is a basic workflow to help you get started with Actions
 
-name: CI
+import sys
+username = input("Enter username: ")
+password = input("Enter password: ")
+taken_names = ["Jake", "Dan", "Matt", "James", ]
 
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+if username == "James" and password == "JV":  # my account
+    #    print("name ok")
+    # elif username != "James:":
+    #    print("incorrect username")
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    print("Login sucessfull")  # indented as a function result
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+if username != "James" or password != "JV":  # predetermined user
+    print("Incorrect details, press ENTER to sign up!")
+signup = input("")
+new_username = input("Enter new username: ")
+if new_username == taken_names[0]:
+    print("Username taken, Please try again ")
+else:
+    print("Username accepted!")
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+new_password = input("Enter new password: ")
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+def login():
+    print("Password to short!")
+
+if len(new_password) < 6:
+    login()  # function being called if condition is met
+    new_password = input("Enter new password: ")  # functions repeat password process until correct
+
+if len(new_password) > 6:  # if users password
+    print("Password accepted! press ENTER to sign in!")
+
+login = input("")
+new_user = input("Enter username: ")
+new_pass = input("Enter password: ")  # new user now logging in
+
+if new_user == new_username and new_pass == new_password:
+    print("              Welcome " + new_user + "!")  # string + string
+elif new_user != new_username and new_pass != new_password:
+    print("Incorrect details, sign in failed!")
+    exit() # cancels program
+
+taken_names.append(new_user)  # allows for new user name to be added to list
+# USER ENCRYPTION
+def encrypt(new_pass):  # encrypting password that user inputs
+    encryption = ""  # encryption is string
+    for letter in new_pass:  # for letter in variable/ new username. letter is a variable ive defined,
+        if letter in "abcdefghijklmnopqrstuvwxyz":  # if letters = alphabet change to * so then whole username = *
+            encryption = encryption + "*"  # encryption letters become *
+        else:
+            encryption = encryption + letter  # Else left as normal string but wont ever happen as passwords have them
+    return encryption
+    # return value from function`
+# print(encrypt(new_user)) - TEST TO SEE IF FUNC WORKS
+# system_information = open('info.py','w')
+# system_information.write(new_user)
+# system_information.close()
+
+from info import users_data
+import Card_info
+new_account = users_data(new_user, new_pass, "10.99 P/M") # stating new accounts inputs to function on info page
+print("Thankyou for signing up, Full membership starts at" + " " + new_account.fee)# new.account fee is value being stored in class from our input
+member = input("Become a member? Press ENTER to apply: ")
+# card_details = []
+
+card_details = input("First 4 credit/Debit card numbers: ") # card details-4 are each input of users card info
+card_details2 = input("Second 4 credit/Debit card numbers: ")
+card_details3 = input("Third 4 credit/Debit card numbers: ")
+card_details4 = input("Fourth 4 credit/Debit card numbers: ")
+new_card_details = Card_info(card_details, card_details2, card_details3, card_details4,) # new card details is variable that places card_info and uses pre defined class
+# card_details = self.card = card || card_details1 = self.card2 = card2 || card_details2 = self.card3 = card3 || card_detail3 = self.card4 = card4
+print(new_card_details.card)
+
+
+
