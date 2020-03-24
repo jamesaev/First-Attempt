@@ -87,4 +87,3 @@ newcardvar = Card_Info(card_details, card_details2, card_details3, card_details4
 print(newcardvar.card)
 
 
-
