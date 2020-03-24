@@ -58,8 +58,21 @@ def encrypt(new_pass):  # encrypting password that user inputs
 # system_information.write(new_user)
 # system_information.close()
 
-from info import users_data
-import Card_info
+from info import *
+# class users_data:   # OBJECTS (Seperate document)
+#    def __init__(self, name, password, fee,): # init function is being called, values being stored from program, parameters that are passed in.
+#        self.name = name  # means actual objects name = name to passed in
+#        self.password = password # values that are inputted are assigned to a object
+#        self.fee = fee # cost of membership
+#
+#
+# class Card_Info:
+#    def __init__(self, card, card2, card3, card4): # have to write self as frst argument(paramenter being passed in)
+#        self.card = card
+#        self.card2 = card2
+#        self.card3 = card3
+#        self.card4 = card4
+
 new_account = users_data(new_user, new_pass, "10.99 P/M") # stating new accounts inputs to function on info page
 print("Thankyou for signing up, Full membership starts at" + " " + new_account.fee)# new.account fee is value being stored in class from our input
 member = input("Become a member? Press ENTER to apply: ")
