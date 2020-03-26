@@ -1,0 +1,50 @@
+import turtle
+import math
+
+import random
+jv = turtle.Turtle()
+jv.color("#3642E9", "red") # color of line in hex value from color picker of internet/ 2nd input is inside colour
+jv.pensize(5)
+# jv.forward(100)# number represents how many pixels to move forward by
+
+# TASK was to make square using L/R/F/B however my idea is to make function and call x4
+def square():  # function allows for device to move forward 100 pixels then turn left 90 degree
+    jv.forward(100)
+    jv.left(90)
+
+
+jv.begin_fill()  # starting point of where to fill in
+square()  # calling square function
+square()
+square()
+square()
+jv.end_fill()  # end point of where to fill in
+
+jv.penup()  # penup allows to move without adding more images
+jv.forward(200)
+jv.pendown()  # pendown cancels pen() options and now to resume normal operations
+
+
+vj = turtle.Turtle()  # vj is new var
+vj.color("Grey") # color of line in hex value from color picker of internet/ 2nd input is inside colour
+vj.pensize(5)
+vj.speed(10)  # speed value 10 is fastest
+vj.penup()
+vj.back(400)  # moving arrow to free space on screen
+vj.pendown()
+
+# function to make shape on screen
+def shaped():
+    vj.forward(math.sqrt(J))  # pixel measurements using imported math functions sqrt of J.
+    vj.left(J%90)  # mod 90 when J reaches 90 becomes 1 again
+    vj.forward(24)
+
+
+for J in range(100):
+    shaped()         # running 100 loops of calling shaped function
+
+vs = turtle.Turtle()
+vs.getscreen().bgcolor("Orange")  # sets backgorund colour of screen to orange,
+
+turtle.done()
+
