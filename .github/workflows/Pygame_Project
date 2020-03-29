@@ -1,0 +1,54 @@
+import pygame
+import sys
+
+Height = 800
+Width = 600
+
+Purple = (128, 0, 128)  # Colors
+White = (255, 255, 255)
+Black = (0, 0, 0)
+Title_pos = [15, 15]  # X/Y co ordinates for where text is displayed on the screen.
+Users_size = [50, 80]  # 50 x 50 size
+Users_pos = [375, 300]  # Users_pos[0] = X axis [1] = Y axis
+
+pygame.init()  # initialize pygame by calling pygame function
+
+Screen = pygame.display.set_mode((Height, Width))  # screen dimensions tuple of 2 int
+pygame.display.set_caption('BLOCKLOCK')  # game caption/name of window
+
+Game_over = False
+
+while not Game_over:  # while loop only runs whilst game active
+
+    for event in pygame.event.get():  # pygame.event is main way of dealing with user input
+        if event.type == pygame.QUIT:
+            pygame.quit(); sys.exit()  # pygame.KEYDOWN is pygame document info
+
+        if event.type == pygame.KEYDOWN:  # KEYDOWN is pygame for any key pressed.
+            a = Users_pos[0]   # a not used as game requires only moving up/down
+            b = Users_pos[1]
+
+            if event.key == pygame.K_DOWN:  # if Down arrow key pressed
+                # print("DOWN")                 for debugging
+                b += 20
+
+            elif event.key == pygame.K_UP:
+                # print("UP")                   for debugging
+                b -= 20
+            Users_pos = [a, b]
+
+    Screen.fill(Black)  # fills in screen from where user moved with black
+
+#     if event.type == quit:  # checks for pygame event member var to = QUIT
+#     pygame.quit()  # pygame.quit deactivates pygame lib
+#     sys.exit()  # sys.exit will terminate program
+
+    pygame.draw.rect(Screen, Purple, (Users_pos[0], Users_pos[1], Users_size[0], Users_size[1]))
+#     drawing rectangle(location/color/location on X/Y axis + /height/width of rectangle
+
+    Font = pygame.font.SysFont('Impact', 50)  # makes font object, str = font type. 2nd parameter is font size
+    Text = Font.render('BLOCKLOCK', True, White, Screen)  # text object uses Font.render,
+    Title = Screen.blit(Text, (Title_pos[0], Title_pos[1]))
+
+    pygame.display.update()  # updates contents on display
+
