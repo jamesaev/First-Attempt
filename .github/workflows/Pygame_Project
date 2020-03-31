@@ -1,5 +1,8 @@
+
 import pygame
 import sys
+import random
+import math
 
 Height = 800
 Width = 600
@@ -11,44 +14,114 @@ Title_pos = [15, 15]  # X/Y co ordinates for where text is displayed on the scre
 Users_size = [50, 80]  # 50 x 50 size
 Users_pos = [375, 300]  # Users_pos[0] = X axis [1] = Y axis
 
+Lazers_pos1 = [0, 400]  # each side of screen measurements for when lazers spawn from both sides.
+Lazers_pos2 = [600, 300]
+Lazers_size = [125, 5]
+
+NoOfLazers1 = [Lazers_pos1]
+NoOfLazers2 = [Lazers_pos2]
+Lazer = ()
 pygame.init()  # initialize pygame by calling pygame function
+zoom = .3
 
 Screen = pygame.display.set_mode((Height, Width))  # screen dimensions tuple of 2 int
 pygame.display.set_caption('BLOCKLOCK')  # game caption/name of window
-
+Clock = pygame.time.Clock()  # stating that there is a clock obj in my program
 Game_over = False
+
+
+# class Users(object)
+#     def __init__(self, hitbox):
+#          self.hitbox = Users_size[0], Users_size[1]
+
+# def beamcolor():
+#     RandColor[0] = random.randint(0, 255)
+#     RandColor[1] = random.randint(0, 255)
+#     RandColor[2] = random.randint(0, 255)  # come back to making colors change
+
+def lazerdodge():
+    for Lazers_pos1 in NoOfLazers1:  # function that draws enemys from both sides
+        pygame.draw.rect(Screen, White, (Lazers_pos1[0], Lazers_pos1[1], Lazers_size[0], Lazers_size[1]))
+    for Lazers_pos2 in NoOfLazers2:
+        pygame.draw.rect(Screen, White, (Lazers_pos2[0], Lazers_pos2[1], Lazers_size[0], Lazers_size[1]))
+
+
+def lazerfire():
+    for order1, Lazers_pos1 in enumerate(NoOfLazers1):  # order/index
+
+        # if Lazers_pos1[0] >= 0 and Lazers_pos1[0] <= Width:
+        #    Lazers_pos1[0] += zoom
+        if 0 <= Lazers_pos1[0] <= Width:  # shortened version
+            Lazers_pos1[0] += zoom
+        else:
+            NoOfLazers1.pop(order1)  # .pop removes last index value
+
+    for order2, Lazers_pos2 in enumerate(NoOfLazers2):  # order/index
+
+        if 0 <= Lazers_pos2[0] <= Width:
+            Lazers_pos2[0] -= zoom
+        else:
+            NoOfLazers2.pop(order2)  # .pop removes last index value
+
+
+def spawntime():
+    spawned = random.randint(1, 20)  # generates random float between 0-1
+    spawn = random.randint(1, 20)  # generates random float between 0-1
+
+    if len(NoOfLazers1) < 5 and spawn < 3:  # so not every time line spawn
+        c = random.randint(50, Height)  # height/0 so spawns on line but 450 as not to go on the BLOCKLOCK TEXT
+        d = 0  # where lazers start from
+        NoOfLazers1.append([d, c])
+
+    if len(NoOfLazers2) < 5 and spawned < 3:  # so not every time line spawn
+        e = random.randint(50, Height)
+        f = Width  # where lazers start from
+        NoOfLazers2.append([f, e])
+
+
+def impact():
+    if Lazers_pos2[0] > Users_pos[0] < U:
+        print("work")
+
+
 
 while not Game_over:  # while loop only runs whilst game active
 
-    for event in pygame.event.get():  # pygame.event is main way of dealing with user input
-        if event.type == pygame.QUIT:
-            pygame.quit(); sys.exit()  # pygame.KEYDOWN is pygame document info
+        for event in pygame.event.get():  # pygame.event is main way of dealing with user input
+            if event.type == pygame.QUIT:
+                pygame.quit();
+                sys.exit()  # pygame.KEYDOWN is pygame document info
 
-        if event.type == pygame.KEYDOWN:  # KEYDOWN is pygame for any key pressed.
-            a = Users_pos[0]   # a not used as game requires only moving up/down
-            b = Users_pos[1]
+            if event.type == pygame.KEYDOWN:  # KEYDOWN is pygame for any key pressed.
+                a = Users_pos[0]  # a not used as game requires only moving up/down
+                b = Users_pos[1]
 
-            if event.key == pygame.K_DOWN:  # if Down arrow key pressed
-                # print("DOWN")                 for debugging
-                b += 20
+                if event.key == pygame.K_DOWN:  # if Down arrow key pressed
+                    # print("DOWN")                 for debugging
+                    b += 20
 
-            elif event.key == pygame.K_UP:
-                # print("UP")                   for debugging
-                b -= 20
-            Users_pos = [a, b]
+                elif event.key == pygame.K_UP:
+                    # print("UP")                   for debugging
+                    b -= 20
+                Users_pos = [a, b]
 
-    Screen.fill(Black)  # fills in screen from where user moved with black
+        Screen.fill(Black)  # fills in screen from where user moved with black
+        #   calling functions i made in loop
+        lazerdodge()
+        lazerfire()
+        spawntime()
+        impact()
 
-#     if event.type == quit:  # checks for pygame event member var to = QUIT
-#     pygame.quit()  # pygame.quit deactivates pygame lib
-#     sys.exit()  # sys.exit will terminate program
 
-    pygame.draw.rect(Screen, Purple, (Users_pos[0], Users_pos[1], Users_size[0], Users_size[1]))
-#     drawing rectangle(location/color/location on X/Y axis + /height/width of rectangle
+        Font = pygame.font.SysFont('Impact', 50)  # makes font object, str = font type. 2nd parameter is font size
+        Text = Font.render('BLOCKLOCK', True, White, Screen)  # text object uses Font.render,
+        Title = Screen.blit(Text, (Title_pos[0], Title_pos[1]))
+        pygame.draw.rect(Screen, Purple, (Users_pos[0], Users_pos[1], Users_size[0], Users_size[1]))
 
-    Font = pygame.font.SysFont('Impact', 50)  # makes font object, str = font type. 2nd parameter is font size
-    Text = Font.render('BLOCKLOCK', True, White, Screen)  # text object uses Font.render,
-    Title = Screen.blit(Text, (Title_pos[0], Title_pos[1]))
+        #     if event.type == quit:  # checks for pygame event member var to = QUIT
+        #     pygame.quit()  # pygame.quit deactivates pygame lib
+        #     sys.exit()  # sys.exit will terminate program
 
-    pygame.display.update()  # updates contents on display
+        pygame.display.update()  # updates contents on display
 
+    #   drawing rectangle(location/color/location on X/Y axis + /height/width of rectangle
