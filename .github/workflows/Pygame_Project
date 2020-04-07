@@ -22,7 +22,7 @@ NoOfLazers2 = [Lazers_pos2]
 
 pygame.init()  # initialize pygame by calling pygame function
 zoom = .3
-
+f
 
 Screen = pygame.display.set_mode((Height, Width))  # screen dimensions tuple of 2 int
 pygame.display.set_caption('BLOCKLOCK')  # game caption/name of window
