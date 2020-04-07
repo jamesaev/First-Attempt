@@ -13,7 +13,7 @@ def square():  # function allows for device to move forward 100 pixels then turn
     jv.left(90)
 
 
-jv.begin_fill()  # starting point of where to fill in
+jv.begin_fill()  # starting point of where to fill in c
 square()  # calling square function
 square()
 square()
