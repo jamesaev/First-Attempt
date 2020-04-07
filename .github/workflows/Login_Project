@@ -81,7 +81,7 @@ member = input("Become a member? Press ENTER to apply: ")
 card_details = input("First 4 credit/Debit card numbers: ") # card details-4 are each input of users card info
 card_details2 = input("Second 4 credit/Debit card numbers: ")
 card_details3 = input("Third 4 credit/Debit card numbers: ")
-card_details4 = input("Fourth 4 credit/Debit card numbers: ")
+card_details4 = input("Fourth 4 credit/Debit card numbers: ")vee
 newcardvar = Card_Info(card_details, card_details2, card_details3, card_details4) # Card_info class has this parameters being passsed into it
 
 print(newcardvar.card)
