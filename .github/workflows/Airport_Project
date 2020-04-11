@@ -1,0 +1,70 @@
+import pyqrcode  # qrcode generator module
+
+# user inputs to determine holiday build
+arrival_des = input("Where would you like to go?: ")
+first_name = input("Name: ")
+sur_name = input("Surname: ")  #
+cus_age = int(input("Age: "))  # I want input as number to use int( to specify integer value
+
+pass_number = 13283
+place_of_birth = 'Harlow'
+nation = 'British citizen'
+date_made = '30/08/2020'
+birth_date = '28/01/1998'
+renew_date = "21/32/2030"
+
+# list of strings for destinations, int for times, str for planes, list for seats and then taken seats value
+available_destinations = ['Turkey', 'Spain']
+available_flight_time = [7.15, 14.45]
+available_planes = ['Airbus A3320', 'Airbus A2230']
+no_of_seats = [112, 128]
+taken_seats = 0
+
+
+class PassengerInfo:
+    def __init__(self, firstname, surname, age):
+        self.firstname = firstname
+        self.surname = surname
+        self.age = age
+
+
+class TravelInfo:
+    def __init__(self, destination, flight_time, seat, business, luggage_limit, plane):
+        self.destination = destination
+        self.flight_time = flight_time
+        self.seat = seat
+        self.business = business
+        self.luggage_limit = luggage_limit
+        self.plane = plane
+
+
+class PassportInfo:
+    def __init__(self, passport_number, p_o_b, nationality, date_activated, renewal_date, d_o_b):
+        self.passport_number = passport_number
+        self.p_o_p = p_o_b
+        self.nationality = nationality
+        self.date_activated = date_activated
+        self.renewal_date = renewal_date
+        self.d_o_b = d_o_b
+
+
+def generate_qr():
+    qr = pyqrcode.create(
+        f'{first_name} \n {sur_name} \n {holiday_build.destination} \n {taken_seats}')  # creates text/display info of QR code
+    qr.png('Ticket.png', scale=8)  # name/format of QR code generated
+    '''
+    Creates PNG file and displays users input data when PNG scanned along with
+    Travel info
+    :return:
+    '''
+
+if arrival_des == available_destinations[0]:  # user input = 'Turkey'
+    taken_seats += 1  # this persons seat on plane
+    if taken_seats == no_of_seats[0]:
+        print('No seats! {} of {} Taken'.format(taken_seats, no_of_seats[0]))
+    holiday_build = TravelInfo(available_destinations[0], available_flight_time[0], taken_seats, 'Business', 25,
+                               available_planes[0])
+    passenger = PassengerInfo(first_name, sur_name, cus_age)
+    passport = PassportInfo(pass_number, place_of_birth, nation, date_made, renew_date, birth_date)
+    generate_qr()
+
